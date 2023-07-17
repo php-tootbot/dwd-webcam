@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.2/phpunit.xsd"
+		 bootstrap="vendor/autoload.php"
+		 cacheResultFile=".build/phpunit.result.cache"
+		 colors="true"
+>
+	<testsuites>
+		<testsuite name="tootbot-template test suite">
+			<directory suffix=".php">./tests/</directory>
+			<!--
+			<exclude>tests/SomeAbstractClass.php</exclude>
+			-->
+		</testsuite>
+	</testsuites>
+	<source>
+		<include>
+			<directory>./src</directory>
+		</include>
+	</source>
+	<coverage>
+		<report>
+			<clover outputFile=".build/coverage/clover.xml"/>
+			<xml outputDirectory=".build/coverage/coverage-xml"/>
+		</report>
+	</coverage>
+	<php>
+		<!-- whether the test runs on CI  - set to false to allow debug output -->
+		<const name="TEST_IS_CI" value="true"/>
+	</php>
+</phpunit>
