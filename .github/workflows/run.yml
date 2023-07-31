@@ -1,0 +1,42 @@
+# https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
+
+on:
+  schedule:
+    # POSIX cron syntax (every hour), https://crontab.guru/every-hour
+    - cron: "0 * * * *"
+
+name: "Run"
+
+jobs:
+
+  run-bot:
+    name: "Run the bot and post to Mastodon"
+
+    runs-on: ubuntu-latest
+
+    env:
+      MASTODON_TOKEN: ${{ secrets.MASTODON_TOKEN }}
+      MASTODON_INSTANCE: ${{ secrets.MASTODON_INSTANCE }}
+
+    steps:
+      - name: "Checkout sources"
+        uses: actions/checkout@v3
+
+      - name: "Install PHP"
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          coverage: none
+          extensions: curl, fileinfo, json, mbstring, openssl, sodium
+
+      - name: "Install dependencies with composer"
+        uses: ramsey/composer-install@v2
+
+      - name: "Run bot"
+        run: php ./cli/run.php
+
+      - name: "Commit log"
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: ":octocat: posted toot"
+          file_pattern: 'data/last_updated.json'
