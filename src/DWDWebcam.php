@@ -230,6 +230,8 @@ class DWDWebcam extends TootBot{
 				->withProtocolVersion('1.1')
 		);
 
+		\var_dump(MessageUtil::toString($request, false));
+
 		/** @phan-suppress-next-line PhanTypeMismatchArgument */
 		$uploadResponse = $this->mastodon->sendRequest($request);
 		$status         = $uploadResponse->getStatusCode();
