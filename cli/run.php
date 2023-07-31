@@ -9,8 +9,8 @@
  */
 
 use chillerlan\DotEnv\DotEnv;
-use PHPTootBot\MyTootBot\MyTootBot;
-use PHPTootBot\PHPTootBot\TootBotOptions;
+use PHPTootBot\DWDWebcamBot\DWDWebcam;
+use PHPTootBot\DWDWebcamBot\DWDWebcamOptions;
 use Psr\Log\LogLevel;
 
 ini_set('date.timezone', 'UTC');
@@ -25,7 +25,7 @@ if(!isset($_SERVER['GITHUB_ACTIONS'])){
 }
 
 // invoke the options instance
-$options = new TootBotOptions;
+$options = new DWDWebcamOptions;
 
 // HTTPOptions
 $options->ca_info        = realpath(__DIR__.'/../config/cacert.pem'); // https://curl.haxx.se/ca/cacert.pem
@@ -47,7 +47,11 @@ $options->loglevel       = LogLevel::INFO;
 $options->dataDir        = __DIR__.'/../data';
 $options->tootVisibility = 'public';
 
+// DWDWebcamOptions
+$options->imageSize      = '1920';
+$options->imageCount     = 1;
+
 // invoke the bot instance and post
-(new MyTootBot($options))->post();
+(new DWDWebcam($options))->post();
 
 exit;

@@ -1,12 +1,12 @@
 {
-	"description": "A template library for Mastodon bots.",
-	"homepage": "https://github.com/php-tootbot/php-tootbot",
+	"description": "A bot that posts pictures from teh German Weather Service webcams.",
+	"homepage": "https://github.com/php-tootbot/dwd-webcam",
 	"license": "MIT",
 	"type": "project",
 	"authors": [
 		{
 			"name": "Contributors",
-			"homepage":"https://github.com/php-tootbot/php-tootbot/graphs/contributors"
+			"homepage":"https://github.com/php-tootbot/dwd-webcam/graphs/contributors"
 		}
 	],
 	"minimum-stability": "dev",
@@ -17,7 +17,8 @@
 		"ext-json": "*",
 		"ext-mbstring": "*",
 		"ext-openssl": "*",
-		"php-tootbot/php-tootbot": "dev-main#6c60dcc7d74cfc093df3d72041901a3691848ea2"
+		"chillerlan/php-settings-container": "^2.1.4 || ^3.1",
+		"php-tootbot/php-tootbot": "dev-main#7b1f2573d36cb5984ea46e9dc5aa0575e83bd28b"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "^10.2",
@@ -25,12 +26,12 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"PHPTootBot\\MyTootBot\\": "src/"
+			"PHPTootBot\\DWDWebcamBot\\": "src/"
 		}
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"PHPTootBot\\MyTootBotTest\\": "tests/"
+			"PHPTootBot\\DWDWebcamBotTest\\": "tests/"
 		}
 	},
 	"scripts": {
