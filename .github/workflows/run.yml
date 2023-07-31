@@ -1,6 +1,9 @@
 # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
 
 on:
+  push:
+    branches:
+      - main
   schedule:
     # POSIX cron syntax (every hour), https://crontab.guru/every-hour
     - cron: "0 * * * *"
