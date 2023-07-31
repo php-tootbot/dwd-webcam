@@ -2,8 +2,8 @@
 
 on:
   schedule:
-    # POSIX cron syntax (every hour), https://crontab.guru/every-hour
-    - cron: "0 * * * *"
+    # POSIX cron syntax (every hour), https://crontab.guru/every-3-hours
+    - cron: "0 */3 * * *"
 
 name: "Run"
 
