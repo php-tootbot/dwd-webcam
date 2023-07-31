@@ -17,6 +17,9 @@ ini_set('date.timezone', 'UTC');
 #mb_internal_encoding('UTF-8');
 
 require_once __DIR__.'/../vendor/autoload.php';
+var_dump(getenv('MASTODON_INSTANCE'));
+var_dump($_ENV);
+var_dump($_SERVER);
 
 // if we're running on gh-actions, we're going to fetch the variables from gh.secrets,
 // otherwise we'll load them from the local .env file into the global environment
@@ -51,7 +54,7 @@ $options->tootVisibility = 'public';
 $options->imageSize      = '1920';
 $options->imageCount     = 1;
 
-var_dump($options);
+var_dump(getenv('MASTODON_INSTANCE'));
 
 // invoke the bot instance and post
 (new DWDWebcam($options))->post();
