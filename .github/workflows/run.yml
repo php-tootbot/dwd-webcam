@@ -5,8 +5,8 @@ on:
     branches:
       - main
   schedule:
-    # POSIX cron syntax (every hour), https://crontab.guru/every-hour
-    - cron: "0 * * * *"
+    # POSIX cron syntax (every 2 hours), https://crontab.guru/#0_*/2_*_*_*
+    - cron: "0 */2 * * *"
 
 name: "Run"
 

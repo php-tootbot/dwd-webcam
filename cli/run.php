@@ -49,7 +49,7 @@ $options->tootVisibility = 'public';
 
 // DWDWebcamOptions
 $options->imageSize      = '1920';
-$options->imageCount     = 1;
+$options->imageCount     = 3;
 
 // invoke the bot instance and post
 (new DWDWebcam($options))->post();
