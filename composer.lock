@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d1ef573cd560a07923ee5aa7133a0054",
+    "content-hash": "9a643c27e6614d6c6426e1f496f062b3",
     "packages": [
         {
             "name": "chillerlan/php-dotenv",
@@ -73,12 +73,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/chillerlan/php-http-message-utils.git",
-                "reference": "f83afbfeb2fb5466ecf5b83d7be07f842f4884ba"
+                "reference": "d1a5a12369a9075100beffe20af16976e3203be8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chillerlan/php-http-message-utils/zipball/f83afbfeb2fb5466ecf5b83d7be07f842f4884ba",
-                "reference": "f83afbfeb2fb5466ecf5b83d7be07f842f4884ba",
+                "url": "https://api.github.com/repos/chillerlan/php-http-message-utils/zipball/d1a5a12369a9075100beffe20af16976e3203be8",
+                "reference": "d1a5a12369a9075100beffe20af16976e3203be8",
                 "shasum": ""
             },
             "require": {
@@ -136,7 +136,7 @@
                     "type": "ko_fi"
                 }
             ],
-            "time": "2023-07-26T15:17:05+00:00"
+            "time": "2023-07-31T15:28:34+00:00"
         },
         {
             "name": "chillerlan/php-httpinterface",
@@ -144,17 +144,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/chillerlan/php-httpinterface.git",
-                "reference": "16739940dec9316caa66bf7fc32f63f05c576ddf"
+                "reference": "20e2d5597b687c4140324419d84468f3c317326f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chillerlan/php-httpinterface/zipball/16739940dec9316caa66bf7fc32f63f05c576ddf",
-                "reference": "16739940dec9316caa66bf7fc32f63f05c576ddf",
+                "url": "https://api.github.com/repos/chillerlan/php-httpinterface/zipball/20e2d5597b687c4140324419d84468f3c317326f",
+                "reference": "20e2d5597b687c4140324419d84468f3c317326f",
                 "shasum": ""
             },
             "require": {
-                "chillerlan/php-http-message-utils": "dev-main#f83afbfeb2fb5466ecf5b83d7be07f842f4884ba",
-                "chillerlan/php-settings-container": "^2.1.4 || ^3.0",
+                "chillerlan/php-http-message-utils": "dev-main#d1a5a12369a9075100beffe20af16976e3203be8",
+                "chillerlan/php-settings-container": "^2.1.4 || ^3.1",
                 "ext-curl": "*",
                 "ext-json": "*",
                 "ext-simplexml": "*",
@@ -177,7 +177,9 @@
             },
             "require-dev": {
                 "phan/phan": "^5.4",
-                "phpunit/phpunit": "^10.2"
+                "phpmd/phpmd": "^2.13",
+                "phpunit/phpunit": "^10.2",
+                "squizlabs/php_codesniffer": "^3.7"
             },
             "default-branch": true,
             "type": "library",
@@ -223,7 +225,7 @@
                     "type": "ko_fi"
                 }
             ],
-            "time": "2023-07-27T16:21:50+00:00"
+            "time": "2023-07-31T20:22:20+00:00"
         },
         {
             "name": "chillerlan/php-oauth-core",
@@ -231,16 +233,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/chillerlan/php-oauth-core.git",
-                "reference": "fded0680f5a6f2af07d476d664aa26c76cbe57b4"
+                "reference": "6766952a204d81be734de535d929d5de5f3d7efe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chillerlan/php-oauth-core/zipball/fded0680f5a6f2af07d476d664aa26c76cbe57b4",
-                "reference": "fded0680f5a6f2af07d476d664aa26c76cbe57b4",
+                "url": "https://api.github.com/repos/chillerlan/php-oauth-core/zipball/6766952a204d81be734de535d929d5de5f3d7efe",
+                "reference": "6766952a204d81be734de535d929d5de5f3d7efe",
                 "shasum": ""
             },
             "require": {
-                "chillerlan/php-httpinterface": "dev-main#16739940dec9316caa66bf7fc32f63f05c576ddf",
+                "chillerlan/php-httpinterface": "dev-main#20e2d5597b687c4140324419d84468f3c317326f",
                 "chillerlan/php-settings-container": "^2.1.4 || ^3.1",
                 "ext-curl": "*",
                 "ext-json": "*",
@@ -309,7 +311,7 @@
                     "type": "ko_fi"
                 }
             ],
-            "time": "2023-07-28T22:18:46+00:00"
+            "time": "2023-08-01T17:03:46+00:00"
         },
         {
             "name": "chillerlan/php-oauth-providers",
@@ -317,16 +319,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/chillerlan/php-oauth-providers.git",
-                "reference": "bf74faa5f65bd1743aeddb3d14f43f9656a0fa77"
+                "reference": "939366e9d2c366ee4e886deddf444b63899392c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chillerlan/php-oauth-providers/zipball/bf74faa5f65bd1743aeddb3d14f43f9656a0fa77",
-                "reference": "bf74faa5f65bd1743aeddb3d14f43f9656a0fa77",
+                "url": "https://api.github.com/repos/chillerlan/php-oauth-providers/zipball/939366e9d2c366ee4e886deddf444b63899392c7",
+                "reference": "939366e9d2c366ee4e886deddf444b63899392c7",
                 "shasum": ""
             },
             "require": {
-                "chillerlan/php-oauth-core": "dev-main#fded0680f5a6f2af07d476d664aa26c76cbe57b4",
+                "chillerlan/php-oauth-core": "dev-main#6766952a204d81be734de535d929d5de5f3d7efe",
                 "ext-curl": "*",
                 "ext-json": "*",
                 "ext-simplexml": "*",
@@ -427,7 +429,7 @@
                     "type": "ko_fi"
                 }
             ],
-            "time": "2023-07-30T17:44:43+00:00"
+            "time": "2023-08-01T21:11:56+00:00"
         },
         {
             "name": "chillerlan/php-settings-container",
@@ -657,17 +659,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-tootbot/php-tootbot.git",
-                "reference": "7b1f2573d36cb5984ea46e9dc5aa0575e83bd28b"
+                "reference": "ccda7ff08f7194f0242b3d84f5d58466db3412d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-tootbot/php-tootbot/zipball/7b1f2573d36cb5984ea46e9dc5aa0575e83bd28b",
-                "reference": "7b1f2573d36cb5984ea46e9dc5aa0575e83bd28b",
+                "url": "https://api.github.com/repos/php-tootbot/php-tootbot/zipball/ccda7ff08f7194f0242b3d84f5d58466db3412d3",
+                "reference": "ccda7ff08f7194f0242b3d84f5d58466db3412d3",
                 "shasum": ""
             },
             "require": {
                 "chillerlan/php-dotenv": "^2.1.2",
-                "chillerlan/php-oauth-providers": "dev-main#32c1f0cee2327abeee067938ac602537529d6868",
+                "chillerlan/php-oauth-providers": "dev-main#939366e9d2c366ee4e886deddf444b63899392c7",
                 "chillerlan/php-settings-container": "^2.1.4 || ^3.1",
                 "ext-curl": "*",
                 "ext-json": "*",
@@ -724,7 +726,7 @@
                     "type": "ko_fi"
                 }
             ],
-            "time": "2023-07-30T19:08:21+00:00"
+            "time": "2023-08-01T21:22:31+00:00"
         },
         {
             "name": "psr/http-client",
