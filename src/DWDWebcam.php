@@ -156,8 +156,15 @@ class DWDWebcam extends TootBot{
 	 * (hey DWD could you maybe add the timestamp to the *.txt files? that would save ~50kb download!)
 	 */
 	protected function fetchExifTime(string $webcam):?int{
-		$exif         = sprintf('%1$s/%2$s/%2$s_latest.exif', $this::WEBCAM_URL, $webcam);
-		$exifRequest  = $this->requestFactory->createRequest('GET', $exif);
+
+		$exifRequest  = $this->requestFactory
+			->createRequest(
+				'GET',
+				sprintf('%1$s/%2$s/%2$s_latest.exif', $this::WEBCAM_URL, $webcam)
+			)
+			->withHeader('User-Agent', $this->options->user_agent)
+		;
+
 		$exifResponse = $this->http->sendRequest($exifRequest);
 
 		if($exifResponse->getStatusCode() !== 200){
@@ -181,8 +188,15 @@ class DWDWebcam extends TootBot{
 	 * Fetches the "latest" image for the given webcam
 	 */
 	protected function fetchImage(string $webcam):?StreamInterface{
-		$filename      = sprintf('%1$s/%2$s/%2$s_latest_%3$s.jpg', $this::WEBCAM_URL, $webcam, $this->options->imageSize);
-		$imageRequest  = $this->requestFactory->createRequest('GET', $filename);
+
+		$imageRequest = $this->requestFactory
+			->createRequest(
+				'GET',
+				sprintf('%1$s/%2$s/%2$s_latest_%3$s.jpg', $this::WEBCAM_URL, $webcam, $this->options->imageSize)
+			)
+			->withHeader('User-Agent', $this->options->user_agent)
+		;
+
 		$imageResponse = $this->http->sendRequest($imageRequest);
 
 		if($imageResponse->getStatusCode() !== 200){
@@ -210,7 +224,7 @@ class DWDWebcam extends TootBot{
 		$multipartStreamBuilder = $this->getMultipartStreamBuilder()
 			// the description/alt-text
 			->addString(
-				content  : sprintf('%s (%s)', $this::WEBCAMS[$webcam], date('d.m.Y, H:i', $timestamp)),
+				content  : sprintf('%s (%s UTC)', $this::WEBCAMS[$webcam], date('d.m.Y, H:i', $timestamp)),
 				fieldname: 'description',
 				headers  : ['Content-Encoding' => 'UTF-8']
 			)
@@ -228,9 +242,8 @@ class DWDWebcam extends TootBot{
 			$this->requestFactory
 				->createRequest('POST', $this->options->instance.'/api/v2/media')
 				->withProtocolVersion('1.1')
+				->withHeader('User-Agent', $this->options->user_agent)
 		);
-
-		\var_dump(MessageUtil::toString($request, false));
 
 		/** @phan-suppress-next-line PhanTypeMismatchArgument */
 		$uploadResponse = $this->mastodon->sendRequest($request);
