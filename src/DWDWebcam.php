@@ -17,7 +17,6 @@ use PHPTootBot\PHPTootBot\Util;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 use RuntimeException;
-use Throwable;
 use function array_diff;
 use function array_keys;
 use function array_values;
@@ -111,13 +110,18 @@ class DWDWebcam extends TootBot{
 			$image = $this->fetchImage($webcam);
 
 			if($image instanceof StreamInterface){
-				$id = $this->uploadImage($image, $webcam, $timestamp);
+				$description = sprintf('%s (%s UTC)', $this::WEBCAMS[$webcam], date('d.m.Y, H:i', $timestamp));
+				$filename    = sprintf('%s-%s.jpg', $webcam, date('Ymd-His', $timestamp));
+
+				$id = $this->uploadMedia($image, $description, $filename);
 
 				// wowee we did it!
 				if($id !== null){
 					$this->lastUpdated[$webcam] = $timestamp;
 
 					$ids[] = $id;
+
+					$this->logger->info(sprintf('uploaded latest image for webcam "%s", media id: "%s"', $webcam, $id));
 				}
 
 				// try not to hammer
@@ -214,60 +218,6 @@ class DWDWebcam extends TootBot{
 		}
 
 		return $imageResponse->getBody();
-	}
-
-	/**
-	 * Uploads the image content given in the StreamInterface, returns the media id required for embedding, null on error.
-	 */
-	protected function uploadImage(StreamInterface $image, string $webcam, int $timestamp):?string{
-		// create the multipart body
-		$multipartStreamBuilder = $this->getMultipartStreamBuilder()
-			// the description/alt-text
-			->addString(
-				content  : sprintf('%s (%s UTC)', $this::WEBCAMS[$webcam], date('d.m.Y, H:i', $timestamp)),
-				fieldname: 'description',
-				headers  : ['Content-Encoding' => 'UTF-8']
-			)
-			// the image content stream
-			->addStream(
-				stream   : $image,
-				fieldname: 'file',
-				filename : sprintf('%s-%s.jpg', $webcam, date('Ymd-His', $timestamp)),
-				headers  : ['Content-Transfer-Encoding' => 'binary']
-			);
-
-		// fire the upload request
-		/** @var \Psr\Http\Message\RequestInterface $request */
-		$request = $multipartStreamBuilder->build(
-			$this->requestFactory
-				->createRequest('POST', $this->options->instance.'/api/v2/media')
-				->withProtocolVersion('1.1')
-				->withHeader('User-Agent', $this->options->user_agent)
-		);
-
-		/** @phan-suppress-next-line PhanTypeMismatchArgument */
-		$uploadResponse = $this->mastodon->sendRequest($request);
-		$status         = $uploadResponse->getStatusCode();
-
-		if($status !== 200){
-			$this->logger->error(sprintf('image upload error: HTTP/%s', $status));
-
-			return null;
-		}
-
-		try{
-			$json = MessageUtil::decodeJSON($uploadResponse);
-		}
-		catch(Throwable $e){
-			$this->logger->error(sprintf('image upload response json decode error: %s', $e->getMessage()));
-
-			return null;
-		}
-
-		// yay
-		$this->logger->info(sprintf('uploaded latest image for webcam "%s", media id: "%s"', $webcam, $json->id));
-
-		return (string)$json->id;
 	}
 
 	/**

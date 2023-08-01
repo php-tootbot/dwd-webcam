@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9a643c27e6614d6c6426e1f496f062b3",
+    "content-hash": "2a390272dc0b3038211e6de94c3c9366",
     "packages": [
         {
             "name": "chillerlan/php-dotenv",
@@ -659,12 +659,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-tootbot/php-tootbot.git",
-                "reference": "ccda7ff08f7194f0242b3d84f5d58466db3412d3"
+                "reference": "6fe7d3ba95b8830b2492eb95ad7b4afe4dcea3fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-tootbot/php-tootbot/zipball/ccda7ff08f7194f0242b3d84f5d58466db3412d3",
-                "reference": "ccda7ff08f7194f0242b3d84f5d58466db3412d3",
+                "url": "https://api.github.com/repos/php-tootbot/php-tootbot/zipball/6fe7d3ba95b8830b2492eb95ad7b4afe4dcea3fa",
+                "reference": "6fe7d3ba95b8830b2492eb95ad7b4afe4dcea3fa",
                 "shasum": ""
             },
             "require": {
@@ -726,7 +726,7 @@
                     "type": "ko_fi"
                 }
             ],
-            "time": "2023-08-01T21:22:31+00:00"
+            "time": "2023-08-01T23:11:39+00:00"
         },
         {
             "name": "psr/http-client",
