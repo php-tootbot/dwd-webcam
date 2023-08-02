@@ -11,8 +11,8 @@
 namespace PHPTootBot\DWDWebcamBotTest;
 
 use PHPTootBot\DWDWebcamBot\DWDWebcam;
+use PHPTootBot\DWDWebcamBot\DWDWebcamOptions;
 use PHPTootBot\PHPTootBot\TootBotInterface;
-use PHPTootBot\PHPTootBot\TootBotOptions;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -21,7 +21,7 @@ use PHPUnit\Framework\TestCase;
 class DWDWebcamTest extends TestCase{
 
 	public function testInstance():void{
-		$options = new TootBotOptions;
+		$options = new DWDWebcamOptions;
 		$options->dataDir = __DIR__.'/../data';
 
 		$this::assertInstanceOf(TootBotInterface::class, new DWDWebcam($options));

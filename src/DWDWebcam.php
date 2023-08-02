@@ -11,6 +11,7 @@
 namespace PHPTootBot\DWDWebcamBot;
 
 use chillerlan\HTTP\Utils\MessageUtil;
+use chillerlan\Settings\SettingsContainerInterface;
 use PHPTootBot\PHPTootBot\TootBot;
 use PHPTootBot\PHPTootBot\Util;
 use Psr\Http\Message\ResponseInterface;
@@ -56,7 +57,7 @@ class DWDWebcam extends TootBot{
 	/**
 	 * DWDWebcam constructor
 	 */
-	public function __construct(DWDWebcamOptions $options){
+	public function __construct(SettingsContainerInterface|DWDWebcamOptions $options){
 		parent::__construct($options);
 
 		$this->lastUpdated = Util::loadJSON($this->options->dataDir.'/last_updated.json', true);
