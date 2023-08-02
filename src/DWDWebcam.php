@@ -12,7 +12,6 @@ namespace PHPTootBot\DWDWebcamBot;
 
 use chillerlan\HTTP\Utils\MessageUtil;
 use PHPTootBot\PHPTootBot\TootBot;
-use PHPTootBot\PHPTootBot\TootBotOptions;
 use PHPTootBot\PHPTootBot\Util;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
@@ -31,6 +30,8 @@ use function sprintf;
 /**
  * @see https://opendata.dwd.de
  * @see https://twitter.com/DWD_presse/status/1680946279512252417
+ *
+ * @property \PHPTootBot\DWDWebcamBot\DWDWebcamOptions $options
  */
 class DWDWebcam extends TootBot{
 
@@ -49,13 +50,13 @@ class DWDWebcam extends TootBot{
 
 	protected const WEBCAM_URL = 'https://opendata.dwd.de/weather/webcam/';
 
-	protected array  $lastUpdated;
-	protected array  $tried = [];
+	protected array $lastUpdated;
+	protected array $tried = [];
 
 	/**
 	 * DWDWebcam constructor
 	 */
-	public function __construct(TootBotOptions $options){
+	public function __construct(DWDWebcamOptions $options){
 		parent::__construct($options);
 
 		$this->lastUpdated = Util::loadJSON($this->options->dataDir.'/last_updated.json', true);
@@ -96,7 +97,14 @@ class DWDWebcam extends TootBot{
 
 			// exit early when there's nothing left in the pool
 			if($webcam === null){
-				break;
+
+				// return what we have so far
+				if(!empty($ids)){
+					return $ids;
+				}
+
+				// throw and exit
+				throw new RuntimeException('could not fetch a valid image');
 			}
 
 			$timestamp = $this->fetchExifTime($webcam);
@@ -112,14 +120,12 @@ class DWDWebcam extends TootBot{
 			if($image instanceof StreamInterface){
 				$description = sprintf('%s (%s UTC)', $this::WEBCAMS[$webcam], date('d.m.Y, H:i', $timestamp));
 				$filename    = sprintf('%s-%s.jpg', $webcam, date('Ymd-His', $timestamp));
-
-				$id = $this->uploadMedia($image, $description, $filename);
+				$id          = $this->uploadMedia($image, $description, $filename);
 
 				// wowee we did it!
 				if($id !== null){
 					$this->lastUpdated[$webcam] = $timestamp;
-
-					$ids[] = $id;
+					$ids[]                      = $id;
 
 					$this->logger->info(sprintf('uploaded latest image for webcam "%s", media id: "%s"', $webcam, $id));
 				}
@@ -134,7 +140,6 @@ class DWDWebcam extends TootBot{
 			}
 		}
 
-		throw new RuntimeException('could not fetch a valid image');
 	}
 
 	/**
@@ -162,10 +167,7 @@ class DWDWebcam extends TootBot{
 	protected function fetchExifTime(string $webcam):?int{
 
 		$exifRequest  = $this->requestFactory
-			->createRequest(
-				'GET',
-				sprintf('%1$s/%2$s/%2$s_latest.exif', $this::WEBCAM_URL, $webcam)
-			)
+			->createRequest('GET', sprintf('%1$s/%2$s/%2$s_latest.exif', $this::WEBCAM_URL, $webcam))
 			->withHeader('User-Agent', $this->options->user_agent)
 		;
 
@@ -192,12 +194,10 @@ class DWDWebcam extends TootBot{
 	 * Fetches the "latest" image for the given webcam
 	 */
 	protected function fetchImage(string $webcam):?StreamInterface{
+		$imageURL = sprintf('%1$s/%2$s/%2$s_latest_%3$s.jpg', $this::WEBCAM_URL, $webcam, $this->options->imageSize);
 
 		$imageRequest = $this->requestFactory
-			->createRequest(
-				'GET',
-				sprintf('%1$s/%2$s/%2$s_latest_%3$s.jpg', $this::WEBCAM_URL, $webcam, $this->options->imageSize)
-			)
+			->createRequest('GET', $imageURL)
 			->withHeader('User-Agent', $this->options->user_agent)
 		;
 
