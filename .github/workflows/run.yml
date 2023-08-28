@@ -1,12 +1,12 @@
 # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
 
 on:
-  push:
-    branches:
-      - main
+#  push:
+#    branches:
+#      - main
   schedule:
     # POSIX cron syntax (every 2 hours), https://crontab.guru/#0_*/2_*_*_*
-    - cron: "0 */2 * * *"
+    - cron: "0 */3 * * *"
 
 name: "Run"
 
@@ -43,3 +43,6 @@ jobs:
         with:
           commit_message: ":octocat: posted toot"
           file_pattern: 'data/last_updated.json'
+          commit_user_name: "github-actions[bot]"
+          commit_user_email: "41898282+github-actions[bot]@users.noreply.github.com"
+          commit_author: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
