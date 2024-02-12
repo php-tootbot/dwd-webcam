@@ -29,7 +29,8 @@ $options = new DWDWebcamOptions;
 
 // HTTPOptions
 $options->ca_info        = realpath(__DIR__.'/../config/cacert.pem'); // https://curl.haxx.se/ca/cacert.pem
-$options->user_agent     = 'phpTootBot/1.0 +https://github.com/php-tootbot/php-tootbot';
+$options->user_agent     = 'phpTootBot/1.0 +https://github.com/php-tootbot/dwd-webcam';
+$options->timeout        = 30;
 $options->retries        = 3;
 
 // OAuthOptionsTrait
@@ -49,7 +50,7 @@ $options->tootVisibility = 'public';
 
 // DWDWebcamOptions
 $options->imageSize      = '1920';
-$options->imageCount     = 3;
+$options->imageCount     = 4;
 
 // invoke the bot instance and post
 (new DWDWebcam($options))->post();

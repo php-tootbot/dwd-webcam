@@ -1,80 +1,22 @@
-# tootbot-template
+# dwd-webcam
 
-## getting started
+A [mastodon bot][follow] that posts pictures from the [German Weather service (Deutscher Wetterdienst DWD)](https://www.dwd.de/EN/Home/home_node.html) [webcams](https://opendata.dwd.de/weather/webcam/).
 
-### first things first
-- clone this repository
-- create a mastodon account for your bot, e.g. on https://botsin.space/
-- when your account is approved, go to the [development settings](https://botsin.space/settings/applications) and create a new application
-- copy [`/config/.env_example`](./config/.env_example) to `/config/.env` (for local test, **do not upload the .env to GitHub!**)
-  - copy the access token from the mastodon application and save it in the `.env` as `MASTODON_TOKEN`, go to the repository settings on GitHub under `{repo_url}/settings/secrets/actions` and save it there too (not necessary if you plan to run the bot on your own webserver)
-  - save the mastodon instance URL in the `.env` as `MASTODON_INSTANCE`, save it as GitHub repository secret as well
-  - if you plan to use remote authentication with the mastodon app, you will need to do the same for the client key, secret and callback-URL
-- fetch a fresh `cacert.pem` from https://curl.se/ca/cacert.pem and save it under `/config`
+(This project is not affiliated with DWD)
 
-### next up: code
-- update the [`LICENSE`](./LICENSE)
-- change the example namespaces in [`composer.json`](./composer.json), add any libraries you need, add yourself as author
-  - commit the `composer.lock` after updating
-- change/replace the [`MyTootBot`](./src/MyTootBot.php) and [`MyTootBotTest`](./tests/MyTootBotTest.php) examples
-  - `MyTootBot` needs to extend the abstract `TootBot` class
-- update the CLI runner [`run.php`](./cli/run.php) as necessary
+[![Run][gh-action-badge]][gh-action]
+[![License][license-badge]][license]
+[![Follow @dwil][follow-badge]][follow]
 
-### finally: run
-- test locally: `php ./cli/run.php`
-- create a `run.yml` in [`/.github/workflows`](./.github/workflows) which enables a scheduled GitHub action (see below)
-- profit!
+[gh-action-badge]: https://img.shields.io/github/actions/workflow/status/php-tootbot/dwd-webcam/run.yml?branch=main&logo=github
+[gh-action]: https://github.com/php-tootbot/dwd-webcam/actions/workflows/run.yml?query=branch%3Amain
+[license-badge]: https://img.shields.io/badge/license-MIT-green.svg
+[license]: https://github.com/php-tootbot/dwil/blob/main/LICENSE-MIT
+[follow-badge]: https://img.shields.io/mastodon/follow/110734582408647546?domain=https%3A%2F%2Fbotsin.space&logo=mastodon&style=flat
+[follow]: https://botsin.space/@dwd_webcam
 
-```yml
-# https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
 
-on:
-  schedule:
-    # POSIX cron syntax (every 12th hour), https://crontab.guru/#0_12_*_*_*
-    - cron: "0 12 * * *"
-
-name: "Run"
-
-jobs:
-
-  run-bot:
-    name: "Run the bot and post to Mastodon"
-
-    runs-on: ubuntu-latest
-
-    env:
-      MASTODON_TOKEN: ${{ secrets.MASTODON_TOKEN }}
-      MASTODON_INSTANCE: ${{ secrets.MASTODON_INSTANCE }}
-
-    steps:
-      - name: "Checkout sources"
-        uses: actions/checkout@v3
-
-      - name: "Install PHP"
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: "8.2"
-          coverage: none
-          extensions: curl, json, mbstring, openssl, sodium
-
-      - name: "Install dependencies with composer"
-        uses: ramsey/composer-install@v2
-
-      - name: "Fetch cacert.pem from curl.haxx.se"
-        run: wget -O config/cacert.pem https://curl.se/ca/cacert.pem
-
-      - name: "Run bot"
-        run: php ./cli/run.php
-
-      # please note that this requires read/write permissions for the actions runner!
-      - name: "Commit log"
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: ":octocat: posted toot"
-          file_pattern: 'data/posted.json'
-```
-
-## related projects
+## Related projects
 - [php-tootbot/php-tootbot](https://github.com/php-tootbot/php-tootbot)
 	- [php-tootbot/tootbot-template](https://github.com/php-tootbot/tootbot-template)
 - [chillerlan/php-httpinterface](https://github.com/chillerlan/php-httpinterface)
@@ -84,7 +26,27 @@ jobs:
 - [chillerlan/php-settings-container](https://github.com/chillerlan/php-settings-container)
 - [chillerlan/php-dotenv](https://github.com/chillerlan/php-dotenv)
 
-## disclaimer
+
+## Image copyright
+
+https://www.dwd.de/EN/service/copyright/copyright_node.html
+
+> All information on the web pages of the DWD is protected by copyright.
+>
+> As laid down in the Ordinance Setting the Terms of Use for the Provision of Federal Spatial Data (GeoNutzV, https://www.bmu.de/fileadmin/Daten_BMU/Download_PDF/Strategien_Bilanzen_Gesetze/130309_geonutzv_bgbi_englisch_bf.pdf), all spatial data and spatial data services available for free access may be used without any restrictions provided that the source is acknowledged. When speaking of spatial data, this also includes any location-related weather and climate information presented on our open web pages.
+>
+> Any other content presented on DWD web pages, in whole or extracts thereof, may be reproduced, altered, distributed, used or publicly presented only if expressly permitted by the DWD.
+>
+> Rules and templates for acknowledging the DWD as source can be found here: https://www.dwd.de/EN/service/copyright/templates_dwd_as_source.html?nn=450678
+>
+> Wherever the DWD uses data or information from third parties to generate new products and services, the DWD assures that it holds all necessary rights to do so.
+>
+> Source of basic geospatial data: Surveying authorities of the Länder and Federal Agency for Cartography and Geodesy (BKG) (http://www.bkg.bund.de)
+>
+> Sources of satellite data: EUMETSAT (http://www.eumetsat.int), NOAA (http://www.noaa.gov)
+
+
+## Disclaimer
 
 WE'RE TOTALLY NOT RUNNING A PRODUCTION-LIKE ENVIRONMENT ON GITHUB.<br>
 WE'RE RUNNING A TEST AND POST THE RESULT TO AN EXTERNAL WEBSITE.<br>

@@ -16,6 +16,7 @@ use PHPTootBot\PHPTootBot\TootBot;
 use PHPTootBot\PHPTootBot\Util;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
+use Random\Randomizer;
 use RuntimeException;
 use function array_diff;
 use function array_keys;
@@ -24,7 +25,6 @@ use function count;
 use function date;
 use function intval;
 use function preg_match;
-use function random_int;
 use function sleep;
 use function sprintf;
 
@@ -40,7 +40,7 @@ class DWDWebcam extends TootBot{
 		'Hamburg-SO'          => 'DWD Hamburg - Blick nach Südost, elbaufwärts',
 		'Hamburg-SW'          => 'DWD Hamburg - Blick nach Südwest, elbabwärts',
 		'Hohenpeissenberg-S'  => 'Meteorologisches Observatorium Hohenpreißenberg - Blick nach Süden',
-		'Hohenpeissenberg-SW' => 'Meteorologisches Observatorium Hohenpreißenberg - Blick nach Südwesten',
+#		'Hohenpeissenberg-SW' => 'Meteorologisches Observatorium Hohenpreißenberg - Blick nach Südwesten',
 		'Lindenberg-NNE'      => 'Meteorologisches Observatorium Lindenberg - Blick nach Nord-Nordosten',
 		'Offenbach-O'         => 'DWD Offenbach - Ost, Blick nach Offenbach',
 		'Offenbach-W'         => 'DWD Offenbach - West, Blick nach Frankfurt',
@@ -154,14 +154,14 @@ class DWDWebcam extends TootBot{
 			return null;
 		}
 
-		$item          = $diff[random_int(0, (count($diff) - 1))];
+		$item          = (new Randomizer)->shuffleArray($diff)[0];
 		$this->tried[] = $item;
 
 		return $item;
 	}
 
 	/**
-	 * Fetches the exif file for the "latest" image of the given webcam, returns the timestamp on success, otherwise -1
+	 * Fetches the exif file for the "latest" image of the given webcam, returns the timestamp on success, otherwise null
 	 *
 	 * (hey DWD could you maybe add the timestamp to the *.txt files? that would save ~50kb download!)
 	 */
