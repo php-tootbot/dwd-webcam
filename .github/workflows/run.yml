@@ -10,6 +10,9 @@ on:
 
 name: "Run"
 
+env:
+  PHP_EXTENSIONS: curl, fileinfo, intl, json, mbstring, simplexml, sodium, zlib
+
 jobs:
 
   run-bot:
@@ -23,17 +26,17 @@ jobs:
 
     steps:
       - name: "Checkout sources"
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: "Install PHP"
         uses: shivammathur/setup-php@v2
         with:
           php-version: "8.3"
+          extensions: ast, ${{ env.PHP_EXTENSIONS }}
           coverage: none
-          extensions: curl, fileinfo, json, mbstring, openssl, sodium
 
       - name: "Install dependencies with composer"
-        uses: ramsey/composer-install@v2
+        uses: ramsey/composer-install@v3
 
       - name: "Run bot"
         run: php ./cli/run.php

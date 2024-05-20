@@ -37,9 +37,9 @@ use function sprintf;
 class DWDWebcam extends TootBot{
 
 	protected const WEBCAMS = [
-		'Hamburg-SO'          => 'DWD Hamburg - Blick nach Südost, elbaufwärts',
-		'Hamburg-SW'          => 'DWD Hamburg - Blick nach Südwest, elbabwärts',
-		'Hohenpeissenberg-S'  => 'Meteorologisches Observatorium Hohenpreißenberg - Blick nach Süden',
+		'Hamburg-SO'          => 'DWD Hamburg - Blick nach Südost, elbaufwärts (Elbphilharmonie)',
+		'Hamburg-SW'          => 'DWD Hamburg - Blick nach Südwest, elbabwärts (Containerterminal)',
+		'Hohenpeissenberg-S'  => 'Meteorologisches Observatorium Hohenpreißenberg - Blick nach Süden (Zugspitze)',
 #		'Hohenpeissenberg-SW' => 'Meteorologisches Observatorium Hohenpreißenberg - Blick nach Südwesten',
 		'Lindenberg-NNE'      => 'Meteorologisches Observatorium Lindenberg - Blick nach Nord-Nordosten',
 		'Offenbach-O'         => 'DWD Offenbach - Ost, Blick nach Offenbach',
@@ -235,11 +235,14 @@ class DWDWebcam extends TootBot{
 	/**
 	 * @inheritDoc
 	 */
-	protected function submitTootFailure(ResponseInterface $response):never{
-		$json = MessageUtil::decodeJSON($response);
+	protected function submitTootFailure(ResponseInterface|null $response):never{
 
-		if(isset($json->error)){
-			$this->logger->error($json->error);
+		if($response instanceof ResponseInterface){
+			$json = MessageUtil::decodeJSON($response);
+
+			if(isset($json->error)){
+				$this->logger->error($json->error);
+			}
 		}
 
 		exit(255);
