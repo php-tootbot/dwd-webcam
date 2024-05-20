@@ -20,6 +20,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write
+
     env:
       MASTODON_TOKEN: ${{ secrets.MASTODON_TOKEN }}
       MASTODON_INSTANCE: ${{ secrets.MASTODON_INSTANCE }}
@@ -42,7 +45,7 @@ jobs:
         run: php ./cli/run.php
 
       - name: "Commit log"
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: ":octocat: posted toot"
           file_pattern: "data/last_updated.json"
