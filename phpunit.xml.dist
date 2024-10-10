@@ -24,7 +24,7 @@
 		</report>
 	</coverage>
 	<php>
-		<!-- whether the test runs on CI  - set to false to allow debug output -->
+		<!-- whether the test runs on CI -->
 		<const name="TEST_IS_CI" value="true"/>
 	</php>
 </phpunit>
