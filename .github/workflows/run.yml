@@ -6,7 +6,7 @@ on:
 #      - main
   schedule:
     # POSIX cron syntax (every 2 hours), https://crontab.guru/#0_*/2_*_*_*
-    - cron: "0 */3 * * *"
+#    - cron: "0 */3 * * *"
 
 name: "Run"
 
