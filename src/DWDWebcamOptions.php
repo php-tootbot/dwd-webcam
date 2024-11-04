@@ -51,4 +51,5 @@ class DWDWebcamOptions extends TootBotOptions{
 	protected function set_imageCount(int $imageCount):void{
 		$this->imageCount = max(1, min(4, $imageCount));
 	}
+
 }

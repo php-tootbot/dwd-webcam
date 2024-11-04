@@ -40,7 +40,7 @@ class DWDWebcam extends TootBot{
 		'Hamburg-SO'          => 'DWD Hamburg - Blick nach Südost, elbaufwärts (Elbphilharmonie)',
 		'Hamburg-SW'          => 'DWD Hamburg - Blick nach Südwest, elbabwärts (Containerterminal)',
 		'Hohenpeissenberg-S'  => 'Meteorologisches Observatorium Hohenpreißenberg - Blick nach Süden (Zugspitze)',
-#		'Hohenpeissenberg-SW' => 'Meteorologisches Observatorium Hohenpreißenberg - Blick nach Südwesten',
+		'Hohenpeissenberg-SW' => 'Meteorologisches Observatorium Hohenpreißenberg - Blick nach Südwesten',
 		'Lindenberg-NNE'      => 'Meteorologisches Observatorium Lindenberg - Blick nach Nord-Nordosten',
 		'Offenbach-O'         => 'DWD Offenbach - Ost, Blick nach Offenbach',
 		'Offenbach-W'         => 'DWD Offenbach - West, Blick nach Frankfurt',
